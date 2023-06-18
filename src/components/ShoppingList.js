@@ -15,6 +15,8 @@ function ShoppingList() {
       .then((items) => setItems(items));
   }, []);
   
+  
+  
   function handleDeleteItem(deletedItem) {
     const updatedItems = items.filter((item) => item.id !== deletedItem.id);
     setItems(updatedItems);
@@ -32,6 +34,17 @@ function ShoppingList() {
     });
     setItems(updatedItems);
   }
+ 
+ 
+ 
+  function handleDeleteItem(deletedItem) {
+    const updatedItems = items.filter((item) => item.id !== deletedItem.id);
+    setItems(updatedItems);
+  }
+
+  
+  
+
   function handleAddItem(newItem) {
     setItems([...items, newItem]);
   }
@@ -49,14 +62,19 @@ function ShoppingList() {
 
   return (
     <div className="ShoppingList">
-      <ItemForm />
+      <ItemForm onAddItem={handleAddItem} />
       <Filter
         category={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
       <ul className="Items">
-        {itemsToDisplay.map((item) => (
-          <Item key={item.id} item={item} />
+       {itemsToDisplay.map((item) => (
+          <Item
+            key={item.id}
+            item={item}
+            onUpdateItem={handleUpdateItem}
+            onDeleteItem={handleDeleteItem}
+          />
         ))}
       </ul>
     </div>
